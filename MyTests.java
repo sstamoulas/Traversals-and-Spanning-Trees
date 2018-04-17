@@ -11,12 +11,30 @@ import java.util.*;
 public class MyTests {
 	
 	@Test
-	public void mazeSampleTest() throws IOException {
-		Maze m = new Maze("files/mazeSmall.txt");
+	public void mazeSmallTest() throws IOException {
+		Maze m = new Maze("///Users/StamatiosStamoulas/Documents/EclipseWorkspace/Algorithms/resources/graph_files/mazeSmall.txt");
 		List<Maze.Move> moves = m.solveMaze();
 		assertEquals(2, moves.size());
 		assertEquals(Maze.Move.DOWN, moves.get(0));
 		assertEquals(Maze.Move.RIGHT, moves.get(1));
+	}
+	
+	@Test
+	public void mazeMediumTest() throws IOException {
+		Maze m = new Maze("///Users/StamatiosStamoulas/Documents/EclipseWorkspace/Algorithms/resources/graph_files/mazeMedium.txt");
+		List<Maze.Move> moves = m.solveMaze();
+		assertEquals(11, moves.size());
+		assertEquals(Maze.Move.LEFT, moves.get(0));
+		assertEquals(Maze.Move.UP, moves.get(1));
+		assertEquals(Maze.Move.UP, moves.get(2));
+		assertEquals(Maze.Move.RIGHT, moves.get(3));
+		assertEquals(Maze.Move.RIGHT, moves.get(4));
+		assertEquals(Maze.Move.DOWN, moves.get(5));
+		assertEquals(Maze.Move.RIGHT, moves.get(6));
+		assertEquals(Maze.Move.RIGHT, moves.get(7));
+		assertEquals(Maze.Move.UP, moves.get(8));
+		assertEquals(Maze.Move.UP, moves.get(9));
+		assertEquals(Maze.Move.UP, moves.get(10));
 	}
 	
 	@Test
