@@ -8,6 +8,8 @@ public class Maze {
 	Graph g; //We will store the maze internally as a graph
 	int startVertex; //one of the vertices in the graph will be the start of the maze
 	int endVertex; //another will be the end of the maze
+	boolean[] visited;
+	List<Move> moves;
 	
 	/**
 	 * We will store an nxn maze in a textfile, and read it in.
@@ -34,7 +36,7 @@ public class Maze {
 				if (grid[row][col] == 2) {
 					startVertex = row*n + col;
 				}
-				if (grid[row][col] == 3) {
+				else if (grid[row][col] == 3) {
 					endVertex = row*n + col;
 				}
 			}
@@ -43,7 +45,17 @@ public class Maze {
 		//TODO
 		//determine how to represent the graph and create it
 		//initialize startVertex and endVertex
-		g = null;
+		g = new Graph(n*n);
+		for(int row = 0; row < n; row++) {
+			for(int col = 0; col < n; col++) {
+				if((col + 1) < n && grid[row][col] != 0 && grid[row][col + 1] != 0) {
+					g.addEdge(row*n + col, row*n + (col + 1));
+				}
+				if((row + 1) < n && grid[row][col] != 0 && grid[row + 1][col] != 0) {
+					g.addEdge(row*n + col, (row + 1)*n + col);
+				}		
+			}
+		}
 	}
 	
 	/**
@@ -61,9 +73,47 @@ public class Maze {
 	 */
 	public List<Move> solveMaze() {
 		//TODO
-		return null;
+		visited = new boolean[g.size()];
+		moves = new LinkedList<Move>();
+		dfs(startVertex, endVertex);
+		return moves;
 	}
 	
+	private boolean dfs(int start, int elementToFind) {
+		if (start == elementToFind) {
+			return true;
+		} else {
+			visited[start] = true;
+			for (Integer neighbor : g.neighbors(start)) {
+				if (!visited[neighbor] && dfs(neighbor, elementToFind)) {
+					int n = (int)Math.sqrt(g.size());
+					int startCol = start % n;
+					int startRow = (start - startCol) / n;
+					int neighborCol = neighbor % n;
+					int neighborRow = (neighbor - neighborCol) / n;
+					
+					if(startRow == neighborRow) {
+						if(startCol - neighborCol > 0) {
+							moves.add(0, Move.LEFT);
+						}
+						else if(startCol - neighborCol < 0) {
+							moves.add(0, Move.RIGHT);
+						}
+					}
+					else {
+						if(startRow - neighborRow > 0) {
+							moves.add(0, Move.UP);
+						}
+						else if(startRow - neighborRow < 0) {
+							moves.add(0, Move.DOWN);
+						}
+					}
+		            return true;
+				}
+			}
+			return false;
+		}
+	}
 	
 	/**
 	 * Move is an enum type- when navigating a maze, you can either move
