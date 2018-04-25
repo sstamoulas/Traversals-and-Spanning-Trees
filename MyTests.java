@@ -12,7 +12,7 @@ public class MyTests {
 	
 	@Test
 	public void mazeSmallTest() throws IOException {
-		Maze m = new Maze("resources/graph_files/mazeSmall.txt");
+		Maze m = new Maze("resources/mazeSmall.txt");
 		List<Maze.Move> moves = m.solveMaze();
 		assertEquals(2, moves.size());
 		assertEquals(Maze.Move.DOWN, moves.get(0));
@@ -21,7 +21,7 @@ public class MyTests {
 	
 	@Test
 	public void mazeMediumTest() throws IOException {
-		Maze m = new Maze("resources/graph_files/mazeMedium.txt");
+		Maze m = new Maze("resources/mazeMedium.txt");
 		List<Maze.Move> moves = m.solveMaze();
 		assertEquals(11, moves.size());
 		assertEquals(Maze.Move.LEFT, moves.get(0));
@@ -69,7 +69,7 @@ public class MyTests {
 	
 	@Test
 	public void testLargeGridGraph() throws IOException {
-		Graph g = createGraph("resources/graph_files/largeGridGraph.txt");
+		Graph g = createGraph("resources/largeGridGraph.txt");
 		assertEquals(1, g.numShortestPaths(0, 1));
 		assertEquals(2, g.numShortestPaths(0, 11));
 		assertEquals(1, g.numShortestPaths(0, 9));
@@ -81,7 +81,7 @@ public class MyTests {
 	
 	@Test
 	public void testMaxPaths1LevelGraph() throws IOException {
-		Graph g = createGraph("resources/graph_files/maxPaths1LevelGraph.txt");
+		Graph g = createGraph("resources/maxPaths1LevelGraph.txt");
 		assertEquals(1, g.numShortestPaths(0, 1));
 		assertEquals(1, g.numShortestPaths(0, 2));
 		assertEquals(1, g.numShortestPaths(0, 3));
@@ -92,7 +92,7 @@ public class MyTests {
 	
 	@Test
 	public void testMaxPaths5LevelGraph() throws IOException {
-		Graph g = createGraph("resources/graph_files/maxPaths5LevelGraph.txt");
+		Graph g = createGraph("resources/maxPaths5LevelGraph.txt");
 		assertEquals(1, g.numShortestPaths(0, 0));
 		assertEquals(1, g.numShortestPaths(0, 2));
 		assertEquals(10, g.numShortestPaths(0, 11));
@@ -103,7 +103,7 @@ public class MyTests {
 	
 	@Test
 	public void testTwoCliquesTwoEdges() throws IOException {
-		Graph g = createGraph("resources/graph_files/twoCliquesTwoEdges.txt");
+		Graph g = createGraph("resources/twoCliquesTwoEdges.txt");
 		assertEquals(1, g.numShortestPaths(0, 1));
 		assertEquals(1, g.numShortestPaths(0, 2));
 		assertEquals(1, g.numShortestPaths(0, 3));
