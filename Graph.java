@@ -1,5 +1,8 @@
 package graphs;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -61,6 +64,38 @@ public class Graph {
 	 */
 	public int numShortestPaths(int s, int t) {
 		//TODO
-		return -1;
+		return bfs(s, t);
+	}
+	
+	public int bfs(int start, int elementToFind) {
+		if (start == elementToFind) {
+			return 1;
+		}
+
+		int[] count = new int[size()];
+		int[] val = new int[size()];
+		Queue<Integer> toExplore = new LinkedList<Integer>();
+		
+		count[start] = 1;
+		toExplore.add(start);
+		while (!toExplore.isEmpty()) {
+			int current = toExplore.remove();
+			for (int neighbor : neighbors(current)) {
+				if (count[neighbor] == 0) {
+					toExplore.add(neighbor);
+					val[neighbor] = val[current] + 1;
+					count[neighbor] = count[current];
+				}
+				else if(val[neighbor] == val[current] + 1) {
+					count[neighbor] = count[neighbor] + count[current];
+				}
+				else if(val[neighbor] > val[current] + 1) {
+					val[neighbor] = val[current] + 1;
+					count[neighbor] = count[current];
+				}
+			}
+		}
+		
+		return count[elementToFind];
 	}
 }
